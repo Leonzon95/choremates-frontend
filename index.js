@@ -3,7 +3,7 @@ const hiddenDiv = document.getElementById('hide-index');
 const seconDiv = document.getElementById("secondary-container");
 const houseAdapter = new HouseAdapter
 
-function indexButtons() {
+function indexHomeButtons() {
     const newHouse = document.getElementById("new-house");
     const findHouse = document.getElementById("find-house");
     newHouse.addEventListener("click", newHouseForm);
@@ -32,7 +32,7 @@ function addBackButton() {
 
 function newHouseForm() {
     hideIndex()
-    seconDiv.innerHTML += `<h3>New House</h3>
+    seconDiv.innerHTML += `<h3>New House</h3><div class="form-error"></div>
     <form action="POST" id="new-house-form">
     <div class="form-group">
     <label for="name">Name:</label>
@@ -48,8 +48,20 @@ function newHouseForm() {
 }
 
 function findHouseForm() {
-    hideIndex()
-    addBackButton()
+    hideIndex();
+    seconDiv.innerHTML += `<h3>Find House</h3><div class="form-error"></div>
+    <form action="POST" id="find-house-form">
+    <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" id="name" class="form-control">
+    </div>
+    <div class="form-group">
+    <input type="submit" class="btn btn-info" value="Find House">
+    </div>
+    </form>`;
+    let form = document.getElementById("find-house-form");
+    addBackButton();
+    form.addEventListener("submit", houseAdapter.findHouse);
 }
 
-document.addEventListener("DOMContentLoaded", indexButtons);
+document.addEventListener("DOMContentLoaded", indexHomeButtons);

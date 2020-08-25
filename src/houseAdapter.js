@@ -4,10 +4,9 @@ class HouseAdapter {
     }
 
     //create
-    createHouse (e) {
+    createHouse = (e) => {
         e.preventDefault();
-        
-        let name = document.getElementById("name").value;
+        let name = slug(document.getElementById("name").value);
         let obj = { name }
         let config = {
             method: 'POST',
@@ -17,12 +16,42 @@ class HouseAdapter {
             },
             body: JSON.stringify(obj)
         }
-        fetch("http://localhost:3000/houses", config)
+        fetch(this.baseUrl, config)
             .then(resp => resp.json())
-            .then(json => {
-                let house = new House(json.data.attributes)
-                house.viewHouse()
-            })
+            .then(json => handleFindCreateJson(json))
+    }
+
+    //find
+    findHouse = (e) => {
+        e.preventDefault();
+        let name = slug(document.getElementById("name").value);
+        let house = House.all.find( house => name === house.name);
+        if (house) {
+            house.viewHouse();
+        } else {
+            fetch(`${this.baseUrl}/${name}`)
+                .then(resp => resp.json())
+                .then(json => handleFindCreateJson(json));
+        }
+        
     }
     
+}
+
+function handleFindCreateJson(json) {
+    if(!json.error) {
+        let newHouse = new House(json.data.attributes);
+        newHouse.viewHouse();
+    } else {
+        let div = document.querySelector(".form-error");
+        div.innerHTML = `<div class="alert alert-danger" role="alert">${json.error}</div>`
+    }
+}
+
+function slug(name) {
+    return name.split(" ").join("-");
+}
+
+function unslug(name) {
+    return name.split("-").join(" ");
 }
