@@ -80,32 +80,44 @@ function newHouseMemberForm() {
     let bttnRowDiv = document.querySelector(".buttons")
     bttnRowDiv.appendChild(div)
     let form = document.getElementById("new-house-member-form");
-    let houseMemberButtn = document.getElementById("new-house-member-button")
-    houseMemberButtn.addEventListener("click", () => {
+    let button = document.getElementById("new-house-member-button")
+    button.addEventListener("click", () => {
         form.classList.toggle("d-none");
-        if (houseMemberButtn.innerText === "Add House Member"){
-            houseMemberButtn.innerText = "Close";
+        if (button.innerText === "Add House Member"){
+            button.innerText = "Close";
         } else {
-            houseMemberButtn.innerText = "Add House Member";
+            button.innerText = "Add House Member";
         }
     })
 }
 
 function newHouseRuleForm() {
-    let button = document.createElement("button");
-    button.className = "btn btn-info new-house-rule"
-    button.innerText = "Add House Rule"
     let div = document.createElement("div");
-    div.className = "col-6 col-md-4 d-none";
-    div.innerHTML = `<br><form action="POST" id="new-house-member-form">
+    div.className = "col-6 col-md-4";
+    div.innerHTML = `<button class="btn btn-info" id="new-house-rule-button">Add House Rule</button>
+    <form action="POST" id="new-house-rule-form" class="d-none">
     <div class="form-group">
     <label for="name">Name:</label>
     <input type="text" id="name" class="form-control">
     </div>
     <div class="form-group">
-    <input type="submit" class="btn btn-info" value="Submit">
+    <input type="submit" class="btn btn-info btn-sm" value="Add Rule">
     </div>
-    </form>`
+    </form>`;
+    let bttnRowDiv = document.querySelector(".buttons");
+    
+    bttnRowDiv.appendChild(div);
+    
+    let button = document.getElementById("new-house-rule-button");
+    let form = document.getElementById("new-house-rule-form");
+    button.addEventListener("click", () => {
+        form.classList.toggle("d-none");
+        if (button.innerText === "Add House Rule"){
+            button.innerText = "Close";
+        } else {
+            button.innerText = "Add House Rule";
+        }
+    })
 }
 
 document.addEventListener("DOMContentLoaded", indexHomeButtons);
