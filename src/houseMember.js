@@ -7,4 +7,10 @@ class HouseMember {
         this.houseId = houseId;
         HouseMember.all.push(this);
     }
+
+    attachToDom = () => {
+       
+        let ul = document.querySelector(".house-body ul");
+        ul.innerHTML += `<li>${this.name}</li>`;
+    }
 }

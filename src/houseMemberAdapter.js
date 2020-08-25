@@ -8,6 +8,7 @@ class HouseMemberAdapter {
     createMember = (e) => {
         e.preventDefault();
         let name = document.querySelector("#new-house-member-form #name").value;
+        document.getElementById("new-house-member-form").reset();
         let obj = { name }
         let config = {
             method: 'POST',
