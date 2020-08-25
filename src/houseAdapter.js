@@ -18,7 +18,7 @@ class HouseAdapter {
         }
         fetch(this.baseUrl, config)
             .then(resp => resp.json())
-            .then(json => handleFindCreateJson(json))
+            .then(this.handleFindCreateJson);
     }
 
     //find
@@ -31,22 +31,23 @@ class HouseAdapter {
         } else {
             fetch(`${this.baseUrl}/${name}`)
                 .then(resp => resp.json())
-                .then(json => handleFindCreateJson(json));
+                .then(this.handleFindCreateJson);
         }
-        
+    }
+
+    handleFindCreateJson(json) {
+        if(!json.error) {
+            let newHouse = new House(json.data.attributes);
+            newHouse.viewHouse();
+        } else {
+            let div = document.querySelector(".form-error");
+            div.innerHTML = `<div class="alert alert-danger" role="alert">${json.error}</div>`
+        }
     }
     
 }
 
-function handleFindCreateJson(json) {
-    if(!json.error) {
-        let newHouse = new House(json.data.attributes);
-        newHouse.viewHouse();
-    } else {
-        let div = document.querySelector(".form-error");
-        div.innerHTML = `<div class="alert alert-danger" role="alert">${json.error}</div>`
-    }
-}
+
 
 function slug(name) {
     return name.split(" ").join("-");

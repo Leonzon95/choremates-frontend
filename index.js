@@ -3,6 +3,7 @@ const hiddenDiv = document.getElementById('hide-index');
 const seconDiv = document.getElementById("secondary-container");
 const houseAdapter = new HouseAdapter
 
+
 function indexHomeButtons() {
     const newHouse = document.getElementById("new-house");
     const findHouse = document.getElementById("find-house");
@@ -64,7 +65,8 @@ function findHouseForm() {
     form.addEventListener("submit", houseAdapter.findHouse);
 }
 
-function newHouseMemberForm() {
+function newHouseMemberForm(houseId) {
+    const memberAdapter = new HouseMemberAdapter(houseId)
     let div = document.createElement("div");
     div.className = "col-6 col-md-4";
     div.innerHTML += `<button class="btn btn-info" id="new-house-member-button">Add House Member</button>
@@ -89,6 +91,7 @@ function newHouseMemberForm() {
             button.innerText = "Add House Member";
         }
     })
+    form.addEventListener("submit", memberAdapter.createMember)
 }
 
 function newHouseRuleForm() {
@@ -105,9 +108,7 @@ function newHouseRuleForm() {
     </div>
     </form>`;
     let bttnRowDiv = document.querySelector(".buttons");
-    
     bttnRowDiv.appendChild(div);
-    
     let button = document.getElementById("new-house-rule-button");
     let form = document.getElementById("new-house-rule-form");
     button.addEventListener("click", () => {
@@ -116,6 +117,33 @@ function newHouseRuleForm() {
             button.innerText = "Close";
         } else {
             button.innerText = "Add House Rule";
+        }
+    })
+}
+
+function newHouseChoreForm() {
+    let div = document.createElement("div");
+    div.className = "col-6 col-md-4";
+    div.innerHTML = `<button class="btn btn-info" id="new-house-chore-button">Add House Chore</button>
+    <form action="POST" id="new-house-chore-form" class="d-none">
+    <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" id="name" class="form-control">
+    </div>
+    <div class="form-group">
+    <input type="submit" class="btn btn-info btn-sm" value="Add Chore">
+    </div>
+    </form>`;
+    let bttnRowDiv = document.querySelector(".buttons");
+    bttnRowDiv.appendChild(div);
+    let button = document.getElementById("new-house-chore-button");
+    let form = document.getElementById("new-house-chore-form");
+    button.addEventListener("click", () => {
+        form.classList.toggle("d-none");
+        if (button.innerText === "Add House Chore"){
+            button.innerText = "Close";
+        } else {
+            button.innerText = "Add House Chore";
         }
     })
 }
