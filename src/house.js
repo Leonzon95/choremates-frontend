@@ -8,11 +8,11 @@ class House {
     }
 
     viewHouse() {
-        seconDiv.innerHTML = `<h3>${unslug(this.name)}</h3>
-        <button class="btn btn-info new-house-member">Add House Member</button>
-        <button class="btn btn-info new-house-rule">Add House Rule</button>
-        <div class="add-house-member-form"><form action=""</div>`;
+        seconDiv.innerHTML = `<h3>${unslug(this.name)}</h3><div class="row buttons"></div>`
+        newHouseMemberForm();
+        newHouseRuleForm();
+       `<button class="btn btn-info new-house-rule">Add House Rule</button>
+        <button class="btn btn-info new-house-rule">Add Chore</button>`;
         let newMemberButton = document.querySelector(".new-house-member");
-        
     }
 }
