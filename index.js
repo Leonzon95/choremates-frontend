@@ -70,6 +70,7 @@ function newHouseMemberForm(houseId) {
     let div = document.createElement("div");
     div.className = "col-6 col-md-4";
     div.innerHTML += `<button class="btn btn-info" id="new-house-member-button">Add House Member</button>
+    <div id="error-show"></div>
     <form action="POST" id="new-house-member-form" class="d-none">
     <div class="form-group">
     <label for="name">Name:</label>
