@@ -4,11 +4,12 @@ class HouseAdapter {
     }
 
     //create
-    createHouse(e) {
+    createHouse (e) {
         e.preventDefault();
+        
         let name = document.getElementById("name").value;
         let obj = { name }
-        let config= {
+        let config = {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -16,10 +17,11 @@ class HouseAdapter {
             },
             body: JSON.stringify(obj)
         }
-        fetch(this.baseUrl, config)
+        fetch("http://localhost:3000/houses", config)
             .then(resp => resp.json())
             .then(json => {
-                seconDiv.innerHTML = null;
+                let house = new House(json.data.attributes)
+                house.viewHouse()
             })
     }
     
