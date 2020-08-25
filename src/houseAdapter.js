@@ -38,7 +38,9 @@ class HouseAdapter {
     handleFindCreateJson(json) {
         if(!json.error) {
             let newHouse = new House(json.data.attributes);
+            let houseId = newHouse.id;
             newHouse.viewHouse();
+            if (!!json.included)renderHouseMembers(json.included, houseId)
         } else {
             let div = document.querySelector(".form-error");
             div.innerHTML = `<div class="alert alert-danger" role="alert">${json.error}</div>`

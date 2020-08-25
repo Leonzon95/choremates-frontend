@@ -7,6 +7,8 @@ class House {
         House.all.push(this);
     }
 
+    
+
     viewHouse() {
         seconDiv.innerHTML = `<h3>${unslug(this.name)}</h3><div class="row buttons"></div>
         <div class="row house-rules"></div>
@@ -14,5 +16,6 @@ class House {
         newHouseMemberForm(this.id);
         newHouseRuleForm();
         newHouseChoreForm();
+        
     }
 }

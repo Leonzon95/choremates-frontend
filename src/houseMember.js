@@ -9,7 +9,6 @@ class HouseMember {
     }
 
     attachToDom = () => {
-       
         let ul = document.querySelector(".house-body ul");
         ul.innerHTML += `<li>${this.name}</li>`;
     }
