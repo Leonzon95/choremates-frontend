@@ -24,14 +24,13 @@ class HouseMemberAdapter {
     }
 
     handleCreateJson(json) {
+        let div = document.getElementById("error-member-show");
         if(!json.error) {
-            let div = document.getElementById("error-show");
             div.innerHTML = ``;
-            let attr = {...json.data.attributes, houseId: json.data.relationships.house.data.id}
+            let attr = {...json.data.attributes, houseId: json.data.relationships.house.data.id};
             let newMember = new HouseMember(attr)
             newMember.attachToDom();
         } else {
-            let div = document.getElementById("error-show");
             div.innerHTML = `<div class="alert alert-danger" role="alert">${json.error}</div>`
         }
     }

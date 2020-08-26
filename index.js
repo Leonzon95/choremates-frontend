@@ -70,7 +70,7 @@ function newHouseMemberForm(houseId) {
     let div = document.createElement("div");
     div.className = "col-6 col-md-4";
     div.innerHTML += `<button class="btn btn-info" id="new-house-member-button">Add House Member</button>
-    <div id="error-show"></div>
+    <div id="error-member-show"></div>
     <form action="POST" id="new-house-member-form" class="d-none">
     <div class="form-group">
     <label for="name">Name:</label>
@@ -95,13 +95,15 @@ function newHouseMemberForm(houseId) {
     form.addEventListener("submit", memberAdapter.createMember)
 }
 
-function newHouseRuleForm() {
+function newHouseRuleForm(houseId) {
+    const ruleAdapter = new RuleAdapter(houseId)
     let div = document.createElement("div");
     div.className = "col-6 col-md-4";
     div.innerHTML = `<button class="btn btn-info" id="new-house-rule-button">Add House Rule</button>
+    <div id="error-rule-show"></div>
     <form action="POST" id="new-house-rule-form" class="d-none">
     <div class="form-group">
-    <label for="name">Name:</label>
+    <label for="name">Rule:</label>
     <input type="text" id="name" class="form-control">
     </div>
     <div class="form-group">
@@ -120,6 +122,7 @@ function newHouseRuleForm() {
             button.innerText = "Add House Rule";
         }
     })
+    form.addEventListener("submit", ruleAdapter.createRule)
 }
 
 function newHouseChoreForm() {
