@@ -12,7 +12,7 @@ class Chore {
     attachToDom = () => {
         let ul = document.getElementById("chore-list");
         let li = document.createElement("li")
-        li.class = `outer-chore-${this.id}`
+        li.setAttribute("id", `outer-chore-${this.id}`);
         li.innerHTML = `<div class="card" style="width: 18rem;"><div id="unassg-error-${this.id}"></div><div class="card-body" id="chore-card-${this.id}"><h6 class="card-title"><div>${this.name}</div><br> <div>Difficulty: ${this.difficulty}</div></h6><button type="button" class="btn btn-primary btn-sm">Assign</button>
         <button type="button" class="edit btn btn-secondary btn-sm">Edit</button>
         <button type="button" class="delete btn btn-danger btn-sm">Delete</button>
@@ -21,7 +21,10 @@ class Chore {
         let editBttn = document.querySelector(`#chore-card-${this.id} .edit`);
         let deleteBttn = document.querySelector(`#chore-card-${this.id} .delete`);
         editBttn.addEventListener("click", this.editUnassgChore);
-        // deleteBttn.addEventListener("click", this.)
+        deleteBttn.addEventListener("click", (e) => {
+            const choreAdapter = new ChoreAdapter(this.houseId);
+            choreAdapter.deleteChore(this.id);
+        })
     }
 
     editUnassgChore = (e) => {
@@ -38,7 +41,7 @@ class Chore {
             </select>`;
         } else {
             const choreAdapter = new ChoreAdapter(this.houseId)
-            choreAdapter.patchUnassgChore(this.id, e.target, this.houseId)
+            choreAdapter.patchUnassgChore(this.id, e.target)
         }
       
     }
@@ -55,6 +58,8 @@ class Chore {
         button.innerText = `Edit`
     }
 
-
-
+    deleteChoreFromDom() {
+        let container = document.getElementById(`outer-chore-${this.id}`);
+        container.parentElement.removeChild(container);
+    }
 }

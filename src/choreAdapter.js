@@ -38,7 +38,7 @@ class ChoreAdapter {
     }
 
     //update
-    patchUnassgChore = (choreId, target, houseId) => {
+    patchUnassgChore(choreId, target) {
         let name = target.parentElement.firstElementChild.firstElementChild.firstElementChild.value;
         let difficulty = target.parentElement.firstElementChild.lastElementChild.firstElementChild.value;
         let obj = { name, difficulty };
@@ -50,7 +50,7 @@ class ChoreAdapter {
             },
             body: JSON.stringify(obj)
         }
-        fetch(`http://localhost:3000/houses/${houseId}/chores/${choreId}`, config)
+        fetch(`${this.baseUrl}/${choreId}`, config)
             .then(resp => resp.json())
             .then((json) => {
                 if(!json.error){
@@ -60,7 +60,20 @@ class ChoreAdapter {
                     let div = document.getElementById(`unassg-error-${choreId}`);
                     div.innerHTML = `<div class="alert alert-danger" role="alert">${json.error}</div>`
                 }
-            })
-        
+            }); 
+    }
+
+    deleteChore(choreId) {
+
+        let config = {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            }
+        }
+        fetch(`${this.baseUrl}/${choreId}`, config)
+        let chore = Chore.all.find((el) => el.id == choreId)
+        chore.deleteChoreFromDom()
     }
 }
