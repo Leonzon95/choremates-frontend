@@ -9,7 +9,13 @@ class HouseMember {
     }
 
     attachToDom = () => {
-        let ul = document.querySelector(".house-body ul");
-        ul.innerHTML += `<li>${this.name}</li>`;
+        let tr = document.querySelector(".house-body table thead tr");
+        let bodyTr = document.querySelectorAll(".house-body table tbody tr");
+        tr.innerHTML += `<th scope="col">${this.name}</th>`;
+        let counter = 0;
+        bodyTr.forEach(el => {
+            counter++
+            el.innerHTML += `<td id="member-${this.id}-day${counter}"></td>`
+        });
     }
 }

@@ -63,6 +63,7 @@ class ChoreAdapter {
             }); 
     }
 
+    //delete
     deleteChore(choreId) {
 
         let config = {
