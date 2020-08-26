@@ -53,10 +53,13 @@ class ChoreAdapter {
         fetch(`http://localhost:3000/houses/${houseId}/chores/${choreId}`, config)
             .then(resp => resp.json())
             .then((json) => {
-                
-                let chore = Chore.all.find(el => el.id == choreId)
-                chore.updateUnassgChore(json.data.attributes)
-                
+                if(!json.error){
+                    let chore = Chore.all.find(el => el.id == choreId);
+                    chore.updateUnassgChore(json.data.attributes);
+                } else {
+                    let div = document.getElementById(`unassg-error-${choreId}`);
+                    div.innerHTML = `<div class="alert alert-danger" role="alert">${json.error}</div>`
+                }
             })
         
     }

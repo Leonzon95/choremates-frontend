@@ -12,13 +12,16 @@ class Chore {
     attachToDom = () => {
         let ul = document.getElementById("chore-list");
         let li = document.createElement("li")
-        li.innerHTML = `<div class="card" style="width: 18rem;"><div class="card-body" id="chore-card-${this.id}"><h6 class="card-title"><div>${this.name}</div><br> <div>Difficulty: ${this.difficulty}</div></h6><button type="button" class="btn btn-primary btn-sm">Assign</button>
+        li.class = `outer-chore-${this.id}`
+        li.innerHTML = `<div class="card" style="width: 18rem;"><div id="unassg-error-${this.id}"></div><div class="card-body" id="chore-card-${this.id}"><h6 class="card-title"><div>${this.name}</div><br> <div>Difficulty: ${this.difficulty}</div></h6><button type="button" class="btn btn-primary btn-sm">Assign</button>
         <button type="button" class="edit btn btn-secondary btn-sm">Edit</button>
-        <button type="button" class="btn btn-danger btn-sm">Delete</button>
+        <button type="button" class="delete btn btn-danger btn-sm">Delete</button>
         </div></div><br>`;
         ul.appendChild(li)
-        let editBttn = document.querySelector(`#chore-card-${this.id} .edit`) ;
+        let editBttn = document.querySelector(`#chore-card-${this.id} .edit`);
+        let deleteBttn = document.querySelector(`#chore-card-${this.id} .delete`);
         editBttn.addEventListener("click", this.editUnassgChore);
+        // deleteBttn.addEventListener("click", this.)
     }
 
     editUnassgChore = (e) => {
@@ -41,11 +44,15 @@ class Chore {
     }
 
     updateUnassgChore(obj) {
+        let errorDiv = document.getElementById(`unassg-error-${this.id}`);
+        errorDiv.innerHTML =``;
         this.name = obj.name;
         this.difficulty = obj.difficulty;
         let div = document.getElementById(`chore-card-${this.id}`).querySelector("h6");
         div.firstChild.innerHTML = this.name;
         div.lastChild.innerHTML = `Difficulty: ${this.difficulty}`;
+        let button = document.querySelector(`#chore-card-${this.id} .edit`);
+        button.innerText = `Edit`
     }
 
 
