@@ -1,14 +1,14 @@
-class RuleAdapter {
+class ChoreAdapter {
     constructor(houseId) {
-        this.baseUrl = `http://localhost:3000/houses/${houseId}/rules`;
+        this.baseUrl = `http://localhost:3000/houses/${houseId}/chores`;
     }
 
     //create
-    createRule = (e) => {
+    createChore = (e) => {
         e.preventDefault();
-        let description = document.querySelector("#new-house-rule-form #name").value;
-        document.getElementById("new-house-rule-form").reset();
-        let obj = { description }
+        let name = document.querySelector("#new-house-chore-form #name").value;
+        document.getElementById("new-house-chore-form").reset();
+        let obj = { name }
         let config = {
             method: 'POST',
             headers: {
@@ -21,15 +21,14 @@ class RuleAdapter {
             .then(resp => resp.json())
             .then(this.handleCreateJson)
     }
-
+    
     handleCreateJson(json) {
-        let div = document.getElementById("error-rule-show");
+        debugger
+        let div = document.getElementById("error-chore-show");
         if (!json.error) {
             let attr = {...json.data.attributes, houseId: json.data.relationships.house.data.id};
-            let newRule = new Rule(attr);
-            newRule.attachToDom();
-        } else {
-            div.innerHTML = `<div class="alert alert-danger" role="alert">${json.error}</div>`;
+            let newChore = new Chore(attr);
+            debugger
         }
     }
 }

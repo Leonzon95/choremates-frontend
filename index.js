@@ -125,10 +125,11 @@ function newHouseRuleForm(houseId) {
     form.addEventListener("submit", ruleAdapter.createRule)
 }
 
-function newHouseChoreForm() {
+function newHouseChoreForm(houseId) {
+    const choreAdapter = new ChoreAdapter(houseId)
     let div = document.createElement("div");
     div.className = "col-6 col-md-4";
-    div.innerHTML = `<button class="btn btn-info" id="new-house-chore-button">Add House Chore</button>
+    div.innerHTML = `<button class="btn btn-info" id="new-house-chore-button">Add House Chore</button> <div id="error-chore-show"></div>
     <form action="POST" id="new-house-chore-form" class="d-none">
     <div class="form-group">
     <label for="name">Name:</label>
@@ -150,6 +151,7 @@ function newHouseChoreForm() {
             button.innerText = "Add House Chore";
         }
     })
+    form.addEventListener("submit", choreAdapter.createChore);
 }
 
 function renderHouseMembers(array, houseId) {
