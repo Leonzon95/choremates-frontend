@@ -7,8 +7,11 @@ class ChoreAdapter {
     createChore = (e) => {
         e.preventDefault();
         let name = document.querySelector("#new-house-chore-form #name").value;
+        let difficulty = document.getElementById("input-chore-difficulty").value;
+        if (difficulty === "Select Difficulty") difficulty = null;
+    
         document.getElementById("new-house-chore-form").reset();
-        let obj = { name }
+        let obj = { name, difficulty }
         let config = {
             method: 'POST',
             headers: {

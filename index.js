@@ -138,6 +138,15 @@ function newHouseChoreForm(houseId) {
     <input type="text" id="name" class="form-control">
     </div>
     <div class="form-group">
+    <label for="input-chore-difficulty">Difficulty:</label>
+    <select id="input-chore-difficulty" class="form-control">
+        <option selected>Select Difficulty</option>
+        <option>Easy</option>
+        <option>Medium</option>
+        <option>Hard</option>
+      </select>
+    </div>
+    <div class="form-group">
     <input type="submit" class="btn btn-info btn-sm" value="Add Chore">
     </div>
     </form>`;

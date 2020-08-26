@@ -12,7 +12,10 @@ class House {
     viewHouse() {
         seconDiv.innerHTML = `<h3>${unslug(this.name)}</h3><div class="row buttons"></div>
         <div class="row house-rules"><ol></ol></div>
-        <div class="row house-body"><ul class="col-md-4"></ul><ul class="col-md-4 ml-auto" id="chore-list"></ul></div>`
+        <div class="row house-body">
+        <ul class="col-md-4"></ul>
+        <ul class="col-md-4 ml-auto" id="chore-list"><h4>Unassigned Chores:</h4></ul>
+        </div>`
         newHouseMemberForm(this.id);
         newHouseRuleForm(this.id);
         newHouseChoreForm(this.id);
