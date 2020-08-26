@@ -89,6 +89,7 @@ function newHouseMemberForm(houseId) {
         if (button.innerText === "Add House Member"){
             button.innerText = "Close";
         } else {
+            document.getElementById("error-member-show").innerHTML = ``;
             button.innerText = "Add House Member";
         }
     })
@@ -119,6 +120,7 @@ function newHouseRuleForm(houseId) {
         if (button.innerText === "Add House Rule"){
             button.innerText = "Close";
         } else {
+            document.getElementById("error-rule-show").innerHTML = ``;
             button.innerText = "Add House Rule";
         }
     })
@@ -148,6 +150,7 @@ function newHouseChoreForm(houseId) {
         if (button.innerText === "Add House Chore"){
             button.innerText = "Close";
         } else {
+            document.getElementById("error-chore-show").innerHTML = ``;
             button.innerText = "Add House Chore";
         }
     })

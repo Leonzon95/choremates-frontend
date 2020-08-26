@@ -25,9 +25,12 @@ class ChoreAdapter {
     handleCreateJson(json) {
         let div = document.getElementById("error-chore-show");
         if (!json.error) {
+            div.innerHTML = ``
             let attr = {...json.data.attributes, houseId: json.data.relationships.house.data.id};
             let newChore = new Chore(attr);
             newChore.attachToDom();
+        } else {
+            div.innerHTML = `<div class="alert alert-danger" role="alert">${json.error}</div>`
         }
     }
 }
