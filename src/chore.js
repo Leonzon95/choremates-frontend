@@ -9,25 +9,31 @@ class Chore {
         Chore.all.push(this);
     }
 
+    get house() {
+        return House.all.find(el => el.id === this.houseId)
+    }
+
     attachToDom = () => {
         let ul = document.getElementById("chore-list");
         let li = document.createElement("li")
         li.setAttribute("id", `outer-chore-${this.id}`);
-        li.innerHTML = `<div class="card" style="width: 18rem;"><div id="unassg-error-${this.id}"></div><div class="card-body" id="chore-card-${this.id}"><h6 class="card-title"><div>${this.name}</div><br> <div>Difficulty: ${this.difficulty}</div></h6><button type="button" class="btn btn-primary btn-sm">Assign</button>
+        li.innerHTML = `<div class="card" style="width: 18rem;"><div id="unassg-error-${this.id}"></div><div class="card-body" id="chore-card-${this.id}"><h6 class="card-title"><div>${this.name}</div><br> <div>Difficulty: ${this.difficulty}</div></h6><button type="button" class="assign btn btn-primary btn-sm">Assign</button>
         <button type="button" class="edit btn btn-secondary btn-sm">Edit</button>
-        <button type="button" class="delete btn btn-danger btn-sm">Delete</button>
+        <button type="button" class="delete btn btn-danger btn-sm">Delete</button><div class="assign-form"></div>
         </div></div><br>`;
         ul.appendChild(li)
         let editBttn = document.querySelector(`#chore-card-${this.id} .edit`);
         let deleteBttn = document.querySelector(`#chore-card-${this.id} .delete`);
-        editBttn.addEventListener("click", this.editUnassgChore);
+        let assignBttn = document.querySelector(`#chore-card-${this.id} .assign`);
+        editBttn.addEventListener("click", this.editUnassgChoreForm);
         deleteBttn.addEventListener("click", (e) => {
             const choreAdapter = new ChoreAdapter(this.houseId);
             choreAdapter.deleteChore(this.id);
-        })
+        });
+        assignBttn.addEventListener("click", this.assignChoreForm);
     }
 
-    editUnassgChore = (e) => {
+    editUnassgChoreForm = (e) => {
         let divTitle = e.target.parentElement.firstElementChild.firstElementChild;
         let divDiff = e.target.parentElement.firstElementChild.lastElementChild;
         if (e.target.innerText === "Edit"){
@@ -62,4 +68,26 @@ class Chore {
         let container = document.getElementById(`outer-chore-${this.id}`);
         container.parentElement.removeChild(container);
     }
+
+    assignChoreForm = (e) => {
+        let div = e.target.parentElement.querySelector(".assign-form");
+        if (e.target.innerText === "Assign") {
+            e.target.innerText = "Close";
+            let houseMembers = this.house.members;
+            div.innerHTML = `<br><select id="chore-assign-${this.id}" class="form-control">
+            <option selected>Select Member</option>
+            </select><br><button type="button" class="btn btn-primary" id="chore-assign-button-${this.id}">Assign</button>
+            `
+            let dropDown = document.getElementById(`chore-assign-${this.id}`);
+
+            houseMembers.forEach(el => {
+                dropDown.innerHTML += `<option>${el.name}</option>`
+            });
+
+        } else {
+            e.target.innerText = "Assign";
+            div.innerHTML =``;
+        }
+    }
+
 }

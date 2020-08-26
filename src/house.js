@@ -7,6 +7,10 @@ class House {
         House.all.push(this);
     }
 
+    get members() {
+        return HouseMember.all.filter(el => el.houseId === this.id);
+    }
+
     
 
     viewHouse() {
