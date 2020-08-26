@@ -154,9 +154,19 @@ function newHouseChoreForm() {
 
 function renderHouseMembers(array, houseId) {
     array.forEach(el => {
-        let member = new HouseMember({...el.attributes, houseId: houseId});
-        member.attachToDom();
+        if (el.type === "house_member") {
+            let member = new HouseMember({...el.attributes, houseId: houseId});
+            member.attachToDom();
+        }
     });
 }
 
+function renderHouseRules(array, houseId) {
+    array.forEach(el =>{
+        if (el.type === "rule") {
+            let rule = new Rule({...el.attributes, houseId: houseId})
+            rule.attachToDom();
+        }
+    })
+}
 document.addEventListener("DOMContentLoaded", indexHomeButtons);
