@@ -171,4 +171,13 @@ function renderHouseRules(array, houseId) {
         }
     })
 }
+
+function renderHouseChores(array, houseId) {
+    array.forEach(el => {
+        if (el.type === "chore") {
+            let chore = new Chore({...el.attributes, houseId: houseId})
+            chore.attachToDom();
+        }
+    });
+}
 document.addEventListener("DOMContentLoaded", indexHomeButtons);

@@ -43,6 +43,7 @@ class HouseAdapter {
             if (!!json.included) {
                 renderHouseMembers(json.included, houseId)
                 renderHouseRules(json.included, houseId)
+                renderHouseChores(json.included, houseId)
             };
         } else {
             let div = document.querySelector(".form-error");
