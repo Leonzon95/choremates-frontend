@@ -36,4 +36,28 @@ class ChoreAdapter {
             div.innerHTML = `<div class="alert alert-danger" role="alert">${json.error}</div>`
         }
     }
+
+    //update
+    patchUnassgChore = (choreId, target, houseId) => {
+        let name = target.parentElement.firstElementChild.firstElementChild.firstElementChild.value;
+        let difficulty = target.parentElement.firstElementChild.lastElementChild.firstElementChild.value;
+        let obj = { name, difficulty };
+        let config = {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify(obj)
+        }
+        fetch(`http://localhost:3000/houses/${houseId}/chores/${choreId}`, config)
+            .then(resp => resp.json())
+            .then((json) => {
+                
+                let chore = Chore.all.find(el => el.id == choreId)
+                chore.updateUnassgChore(json.data.attributes)
+                
+            })
+        
+    }
 }
