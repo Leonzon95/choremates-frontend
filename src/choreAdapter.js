@@ -23,12 +23,11 @@ class ChoreAdapter {
     }
     
     handleCreateJson(json) {
-        debugger
         let div = document.getElementById("error-chore-show");
         if (!json.error) {
             let attr = {...json.data.attributes, houseId: json.data.relationships.house.data.id};
             let newChore = new Chore(attr);
-            debugger
+            newChore.attachToDom();
         }
     }
 }
