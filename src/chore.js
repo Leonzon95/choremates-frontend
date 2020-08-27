@@ -47,20 +47,32 @@ class Chore {
         }
         let tableCell = document.getElementById(`member-${this.houseMember.id}-day-${dayId}`);
         if(this.difficulty === "Easy") {
-            tableCell.innerHTML =`<div class="text-success text-center">${this.name}</div>`
+            tableCell.innerHTML +=`<div class="text-success text-center">${this.name}</div>`
         } else if (this.difficulty === "Medium") {
-            tableCell.innerHTML =`<div class="text-warning text-center">${this.name}</div>`
+            tableCell.innerHTML +=`<div class="text-warning text-center">${this.name}</div>`
         } else {
-            tableCell.innerHTML =`<div class="text-danger">${this.name}</div>`
+            tableCell.innerHTML +=`<div class="text-danger">${this.name}</div>`
         }
         let outerDiv = document.getElementById("assg-chore-list");
         let choreDiv = document.createElement("div")
         choreDiv.setAttribute("id", `outer-assg-chore-${this.id}`);
-        choreDiv.innerHTML = `<div class="card" style="width: 18rem;"><div id="assg-error-${this.id}"></div><div class="card-body" id="chore-card-${this.id}"><h6 class="card-title"><div>${this.name}</div><br> <div>Difficulty: ${this.difficulty}</div> <div>${this.day}</div><br><div>${this.houseMember.name}</div></h6><button type="button" class="assign btn btn-primary btn-sm">Assign</button>
+        choreDiv.innerHTML = `<div class="card" style="width: 18rem;">
+        <div id="assg-error-${this.id}"></div>
+        <div class="card-body" id="chore-card-${this.id}">
+        <h6 class="card-title">
+        <div id="assg-name-field-${this.id}">${this.name}</div>
+        <br>
+        <div id="assg-member-field-${this.id}">Member: ${this.houseMember.name}</div>
+        <div id="assg-difficulty-field-${this.id}">Difficulty: ${this.difficulty}</div> 
+        <div id="assg-day-field-${this.id}">Every ${this.day}</div> 
+        </h6>
         <button type="button" class="edit btn btn-secondary btn-sm">Edit</button>
-        <button type="button" class="delete btn btn-danger btn-sm">Delete</button><div class="assign-form"></div>
+        <button type="button" class="delete btn btn-danger btn-sm">Delete</button>
         </div></div><br>`;
-        outerDiv.appendChild(choreDiv)
+        outerDiv.appendChild(choreDiv);
+        let editBttn = document.querySelector(`#outer-assg-chore-${this.id} .edit`);
+        let deleteBttn = document.querySelector(`#outer-assg-chore-${this.id} .delete`);
+        editBttn.addEventListener("click", this.editAssgChoreForm);
     }
 
     editUnassgChoreForm = (e) => {
@@ -142,6 +154,41 @@ class Chore {
             const choreAdapter = new ChoreAdapter(this.houseId);
             let attr = {day, houseMemberId, name: this.name, difficulty: this.difficulty};
             choreAdapter.patchAssgChore(this.id, attr)
+        }
+    }
+
+    editAssgChoreForm = (e) => {
+        let nameDiv = document.getElementById(`assg-name-field-${this.id}`);
+        let memberDiv = document.getElementById(`assg-member-field-${this.id}`);
+        let diffDiv = document.getElementById(`assg-difficulty-field-${this.id}`);
+        let dayDiv = document.getElementById(`assg-day-field-${this.id}`);
+        let bttnText = e.target.innerText;
+        
+        if (bttnText === "Edit") {
+            e.target.innerText = "Save";
+            nameDiv.innerHTML = `<input type="text" value="${this.name}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">`;
+            memberDiv.innerHTML = `<select id="assg-chore-assign-${this.id}" class="form-control"><option selected>${this.houseMember.name}</option></select><br>`;
+            diffDiv.innerHTML = `<select id="input-chore-difficulty" class="form-control">
+            <option selected>${this.difficulty}</option>
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Hard</option>
+            </select><br>`;
+            dayDiv.innerHTML = `<select id="assg-chore-assign-${this.id}-day" class="form-control">
+            <option selected>${this.day}</option>
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+            <option>Sunday</option>
+            </select>`
+            let houseMembers = this.house.members;
+            let memberDropDown = document.getElementById(`assg-chore-assign-${this.id}`);
+            houseMembers.forEach(el => {
+                memberDropDown.innerHTML += `<option value="${el.id}">${el.name}</option>`
+            });
         }
     }
 
