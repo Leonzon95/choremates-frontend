@@ -64,9 +64,9 @@ class ChoreAdapter {
             }); 
     }
 
-    patchAssgChore(choreId, {day, houseMemberId, name, difficulty}) {
+    patchAssgChore(choreId, {day, houseMemberId, name, difficulty}, isOld) {
         let obj = { name, difficulty, houseMemberId, day };
-        debugger
+        
         let config = {
             method: 'PATCH',
             headers: {
@@ -77,9 +77,9 @@ class ChoreAdapter {
         }
         fetch(`${this.baseUrl}/${choreId}`, config)
             .then(resp => resp.json())
-            .then(json => {
+            .then(json => {              
                 let chore = Chore.all.find(el => el.id == choreId);
-                chore.updateAssgChore(json.data.attributes);
+                chore.updateAssgChore(json.data.attributes, isOld);
             })
     }
 

@@ -40,21 +40,21 @@ class Chore {
     }
 
     attachAssgToDom = () => {
-        const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-        let dayId
-        for (let i = 0; i < days.length; i++){ 
-            if (this.day === days[i]) dayId = i;
-        }
-        let tableCell = document.getElementById(`member-${this.houseMember.id}-day-${dayId}`);
-        if(this.difficulty === "Easy") {
-            tableCell.innerHTML +=`<div class="text-success text-center">${this.name}</div>`
-        } else if (this.difficulty === "Medium") {
-            tableCell.innerHTML +=`<div class="text-warning text-center">${this.name}</div>`
-        } else {
-            tableCell.innerHTML +=`<div class="text-danger">${this.name}</div>`
-        }
+        // const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        // let dayId
+        // for (let i = 0; i < days.length; i++){ 
+        //     if (this.day === days[i]) dayId = i;
+        // }
+        // let tableCell = document.getElementById(`member-${this.houseMember.id}-day-${dayId}`);
+        // if(this.difficulty === "Easy") {
+        //     tableCell.innerHTML +=`<div class="text-success text-center" id="table-cell-${this.id}">${this.name}</div>`
+        // } else if (this.difficulty === "Medium") {
+        //     tableCell.innerHTML +=`<div class="text-warning text-center" id="table-cell-${this.id}">${this.name}</div>`
+        // } else {
+        //     tableCell.innerHTML +=`<div class="text-danger" id="table-cell-${this.id}">${this.name}</div>`
+        // }
 
-
+        this.attachToTableCell(this.day, this.houseMemberId, this.name);
         let outerDiv = document.getElementById("assg-chore-list");
         let choreDiv = document.createElement("div")
         choreDiv.setAttribute("id", `outer-assg-chore-${this.id}`);
@@ -196,25 +196,63 @@ class Chore {
                 let errorDiv = document.getElementById(`assg-chore-error-${this.id}`);
                 errorDiv.innerHTML = `<div class="alert alert-danger" role="alert">Name can't be empty</div>`
             } else {
-
                 let day = dayDiv.firstChild.value;
                 let houseMemberId = memberDiv.firstChild.value;
-                let name = nameDiv.firstChild.value;
+                let name = nameDiv.firstChild.value.trim();
                 let difficulty =diffDiv.firstChild.value;
+                // let oldMember = this.houseMemberId;
+                // let oldDay = this.day;
+                
                 const choreAdapter = new ChoreAdapter(this.houseId);
                 let attr = {day, houseMemberId, name, difficulty};
-                choreAdapter.patchAssgChore(this.id, attr);
+                choreAdapter.patchAssgChore(this.id, attr, true);
+                e.target.innerText = "Edit"
+                this.updateTableCell(day, houseMemberId, name);
             }
         }
     }
 
-    updateAssgChore(obj) { 
-        let el = document.getElementById(`outer-unassg-chore-${this.id}`);
-        if (!!el) el.parentElement.removeChild(el);
+    updateTableCell = (newDay, newMemId, newName) => {
+        let oldDiv = document.getElementById(`table-cell-${this.id}`);
+        oldDiv.parentElement.removeChild(oldDiv);
+        this.attachToTableCell(newDay, newMemId, newName);
+    }
+
+    attachToTableCell = (day, houseMemberId, name) => {
+        const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        let dayId
+        for (let i = 0; i < days.length; i++){ 
+            if (day === days[i]) dayId = i;
+        }
+        let tableCell = document.getElementById(`member-${houseMemberId}-day-${dayId}`);
+        if(this.difficulty === "Easy") {
+            tableCell.innerHTML +=`<div class="text-success text-center" id="table-cell-${this.id}">${name}</div>`
+        } else if (this.difficulty === "Medium") {
+            tableCell.innerHTML +=`<div class="text-warning text-center" id="table-cell-${this.id}">${name}</div>`
+        } else {
+            tableCell.innerHTML +=`<div class="text-danger" id="table-cell-${this.id}">${name}</div>`
+        }
+    }
+
+    updateAssgChore(obj, isOld) { 
         this.name = obj.name;
         this.difficulty = obj.difficulty;
         this.houseMemberId = obj.house_member_id;
         this.day = obj.day;
-        this.attachAssgToDom();
+        if (!isOld){
+            let el = document.getElementById(`outer-unassg-chore-${this.id}`);
+            if (!!el) el.parentElement.removeChild(el);
+            this.attachAssgToDom();
+        } else {
+            let nameDiv = document.getElementById(`assg-name-field-${this.id}`);
+            let memberDiv = document.getElementById(`assg-member-field-${this.id}`);
+            let diffDiv = document.getElementById(`assg-difficulty-field-${this.id}`);
+            let dayDiv = document.getElementById(`assg-day-field-${this.id}`);
+            nameDiv.innerHTML = this.name;
+            memberDiv.innerHTML = `Member: ${this.houseMember.name}`;
+            diffDiv.innerHTML = `Difficulty: ${this.difficulty}`;
+            dayDiv.innerHTML = `Every ${this.day}`;
+        }
+        
     }
 }
