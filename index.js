@@ -188,11 +188,10 @@ function renderHouseChores(array, houseId) {
     array.forEach(el => {
         if (el.type === "chore") {
             let chore = new Chore({...el.attributes, houseId: houseId, houseMemberId: el.attributes.house_member_id})
-            
-            if (!chore.houseMemberId){
-                chore.attachToDom();
-            } else {
+            if (!!chore.houseMemberId && !!chore.day){
                 chore.attachAssgToDom();
+            } else {
+                chore.attachToDom();
             }
             
         }

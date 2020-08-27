@@ -22,7 +22,7 @@ class Chore {
     attachToDom = () => {
         let ul = document.getElementById("chore-list");
         let li = document.createElement("li")
-        li.setAttribute("id", `outer-chore-${this.id}`);
+        li.setAttribute("id", `outer-unassg-chore-${this.id}`);
         li.innerHTML = `<div class="card" style="width: 18rem;"><div id="unassg-error-${this.id}"></div><div class="card-body" id="chore-card-${this.id}"><h6 class="card-title"><div>${this.name}</div><br> <div>Difficulty: ${this.difficulty}</div></h6><button type="button" class="assign btn btn-primary btn-sm">Assign</button>
         <button type="button" class="edit btn btn-secondary btn-sm">Edit</button>
         <button type="button" class="delete btn btn-danger btn-sm">Delete</button><div class="assign-form"></div>
@@ -46,14 +46,21 @@ class Chore {
             if (this.day === days[i]) dayId = i;
         }
         let tableCell = document.getElementById(`member-${this.houseMember.id}-day-${dayId}`);
-        
         if(this.difficulty === "Easy") {
             tableCell.innerHTML =`<div class="text-success text-center">${this.name}</div>`
         } else if (this.difficulty === "Medium") {
             tableCell.innerHTML =`<div class="text-warning text-center">${this.name}</div>`
         } else {
-            tableCell.innerHTML =`<div class="text-danger text-center">${this.name}</div>`
+            tableCell.innerHTML =`<div class="text-danger">${this.name}</div>`
         }
+        let outerDiv = document.getElementById("assg-chore-list");
+        let choreDiv = document.createElement("div")
+        choreDiv.setAttribute("id", `outer-assg-chore-${this.id}`);
+        choreDiv.innerHTML = `<div class="card" style="width: 18rem;"><div id="assg-error-${this.id}"></div><div class="card-body" id="chore-card-${this.id}"><h6 class="card-title"><div>${this.name}</div><br> <div>Difficulty: ${this.difficulty}</div> <div>${this.day}</div><br><div>${this.houseMember.name}</div></h6><button type="button" class="assign btn btn-primary btn-sm">Assign</button>
+        <button type="button" class="edit btn btn-secondary btn-sm">Edit</button>
+        <button type="button" class="delete btn btn-danger btn-sm">Delete</button><div class="assign-form"></div>
+        </div></div><br>`;
+        outerDiv.appendChild(choreDiv)
     }
 
     editUnassgChoreForm = (e) => {
@@ -87,8 +94,8 @@ class Chore {
         button.innerText = `Edit`
     }
 
-    deleteChoreFromDom() {
-        let container = document.getElementById(`outer-chore-${this.id}`);
+    deleteUnassgChoreFromDom() {
+        let container = document.getElementById(`outer-unassg-chore-${this.id}`);
         container.parentElement.removeChild(container);
     }
 
@@ -139,7 +146,7 @@ class Chore {
     }
 
     updateAssgChore(obj) { 
-        let el = document.getElementById(`outer-chore-${this.id}`);
+        let el = document.getElementById(`outer-unassg-chore-${this.id}`);
         if (!!el) el.parentElement.removeChild(el);
         this.name = obj.name;
         this.difficulty = obj.difficulty;

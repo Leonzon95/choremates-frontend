@@ -14,7 +14,7 @@ class HouseMember {
         tr.innerHTML += `<th scope="col">${this.name}</th>`;
         let counter = 0;
         bodyTr.forEach(el => {
-            el.innerHTML += `<td id="member-${this.id}-day-${counter}"></td>`
+            el.innerHTML += `<td id="member-${this.id}-day-${counter}" class="text-center"></td>`
             counter++
         });
     }

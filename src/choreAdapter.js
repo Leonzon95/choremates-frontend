@@ -84,7 +84,6 @@ class ChoreAdapter {
 
     //delete
     deleteChore(choreId) {
-
         let config = {
             method: 'DELETE',
             headers: {
@@ -94,6 +93,6 @@ class ChoreAdapter {
         }
         fetch(`${this.baseUrl}/${choreId}`, config)
         let chore = Chore.all.find((el) => el.id == choreId)
-        chore.deleteChoreFromDom()
+        chore.deleteUnassgChoreFromDom()
     }
 }
