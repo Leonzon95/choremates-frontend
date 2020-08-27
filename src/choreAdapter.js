@@ -66,6 +66,7 @@ class ChoreAdapter {
 
     patchAssgChore(choreId, {day, houseMemberId, name, difficulty}) {
         let obj = { name, difficulty, houseMemberId, day };
+        debugger
         let config = {
             method: 'PATCH',
             headers: {

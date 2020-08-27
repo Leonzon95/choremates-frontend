@@ -53,12 +53,14 @@ class Chore {
         } else {
             tableCell.innerHTML +=`<div class="text-danger">${this.name}</div>`
         }
+
+
         let outerDiv = document.getElementById("assg-chore-list");
         let choreDiv = document.createElement("div")
         choreDiv.setAttribute("id", `outer-assg-chore-${this.id}`);
         choreDiv.innerHTML = `<div class="card" style="width: 18rem;">
-        <div id="assg-error-${this.id}"></div>
         <div class="card-body" id="chore-card-${this.id}">
+        <div id="assg-chore-error-${this.id}"></div>
         <h6 class="card-title">
         <div id="assg-name-field-${this.id}">${this.name}</div>
         <br>
@@ -167,7 +169,7 @@ class Chore {
         if (bttnText === "Edit") {
             e.target.innerText = "Save";
             nameDiv.innerHTML = `<input type="text" value="${this.name}" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">`;
-            memberDiv.innerHTML = `<select id="assg-chore-assign-${this.id}" class="form-control"><option selected>${this.houseMember.name}</option></select><br>`;
+            memberDiv.innerHTML = `<select id="assg-chore-assign-${this.id}" class="form-control"><option selected value="${this.houseMember.id}">${this.houseMember.name}</option></select><br>`;
             diffDiv.innerHTML = `<select id="input-chore-difficulty" class="form-control">
             <option selected>${this.difficulty}</option>
             <option>Easy</option>
@@ -189,6 +191,20 @@ class Chore {
             houseMembers.forEach(el => {
                 memberDropDown.innerHTML += `<option value="${el.id}">${el.name}</option>`
             });
+        } else {
+            if (nameDiv.firstChild.value.trim() === "") {
+                let errorDiv = document.getElementById(`assg-chore-error-${this.id}`);
+                errorDiv.innerHTML = `<div class="alert alert-danger" role="alert">Name can't be empty</div>`
+            } else {
+
+                let day = dayDiv.firstChild.value;
+                let houseMemberId = memberDiv.firstChild.value;
+                let name = nameDiv.firstChild.value;
+                let difficulty =diffDiv.firstChild.value;
+                const choreAdapter = new ChoreAdapter(this.houseId);
+                let attr = {day, houseMemberId, name, difficulty};
+                choreAdapter.patchAssgChore(this.id, attr);
+            }
         }
     }
 
