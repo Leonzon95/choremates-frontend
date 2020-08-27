@@ -1,17 +1,22 @@
 class Chore {
     static all = [];
 
-    constructor({name, id, difficulty, houseId, houseMemberId}) {
+    constructor({name, id, difficulty, houseId, houseMemberId, day}) {
         this.name = name;
         this.id = id;
         this.difficulty = difficulty;
         this.houseId = houseId;
         this.houseMemberId = houseMemberId;
+        this.day = day;
         Chore.all.push(this);
     }
 
     get house() {
-        return House.all.find(el => el.id === this.houseId)
+        return House.all.find(el => el.id == this.houseId);
+    }
+
+    get houseMember() {
+        return HouseMember.all.find(el => el.id == this.houseMemberId);
     }
 
     attachToDom = () => {
@@ -32,6 +37,23 @@ class Chore {
             choreAdapter.deleteChore(this.id);
         });
         assignBttn.addEventListener("click", this.assignChoreForm);
+    }
+
+    attachAssgToDom = () => {
+        const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        let dayId
+        for (let i = 0; i < days.length; i++){ 
+            if (this.day === days[i]) dayId = i;
+        }
+        let tableCell = document.getElementById(`member-${this.houseMember.id}-day-${dayId}`);
+        
+        if(this.difficulty === "Easy") {
+            tableCell.innerHTML =`<div class="text-success text-center">${this.name}</div>`
+        } else if (this.difficulty === "Medium") {
+            tableCell.innerHTML =`<div class="text-warning text-center">${this.name}</div>`
+        } else {
+            tableCell.innerHTML =`<div class="text-danger text-center">${this.name}</div>`
+        }
     }
 
     editUnassgChoreForm = (e) => {
@@ -94,10 +116,9 @@ class Chore {
             let dropDown = document.getElementById(`chore-assign-${this.id}`);
             let button = document.getElementById(`chore-assign-button-${this.id}`);
             houseMembers.forEach(el => {
-                dropDown.innerHTML += `<option value="${this.id}">${el.name}</option>`
+                dropDown.innerHTML += `<option value="${el.id}">${el.name}</option>`
             });
             button.addEventListener("click", this.assignCheckpoint);
-
         } else {
             e.target.innerText = "Assign";
             div.innerHTML =``;
@@ -123,19 +144,7 @@ class Chore {
         this.name = obj.name;
         this.difficulty = obj.difficulty;
         this.houseMemberId = obj.house_member_id;
-        const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-        let dayId
-        for (let i = 0; i < days.length; i++){ 
-            if (obj.day === days[i]) dayId = i;
-        }
-        let tableCell = document.getElementById(`member-${this.id}-day-${dayId}`);
-        
-        if(this.difficulty === "Easy") {
-            tableCell.innerHTML =`<div class="text-success text-center">${this.name}</div>`
-        } else if (this.difficulty === "Medium") {
-            tableCell.innerHTML =`<div class="text-warning text-center">${this.name}</div>`
-        } else {
-            tableCell.innerHTML =`<div class="text-danger text-center">${this.name}</div>`
-        }
+        this.day = obj.day;
+        this.attachAssgToDom();
     }
 }

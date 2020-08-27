@@ -187,8 +187,14 @@ function renderHouseRules(array, houseId) {
 function renderHouseChores(array, houseId) {
     array.forEach(el => {
         if (el.type === "chore") {
-            let chore = new Chore({...el.attributes, houseId: houseId})
-            chore.attachToDom();
+            let chore = new Chore({...el.attributes, houseId: houseId, houseMemberId: el.attributes.house_member_id})
+            
+            if (!chore.houseMemberId){
+                chore.attachToDom();
+            } else {
+                chore.attachAssgToDom();
+            }
+            
         }
     });
 }
