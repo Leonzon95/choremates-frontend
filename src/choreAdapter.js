@@ -63,6 +63,10 @@ class ChoreAdapter {
             }); 
     }
 
+    patchAssgChore(choreId, {day, houseMemberId, name, difficulty}) {
+        
+    }
+
     //delete
     deleteChore(choreId) {
 

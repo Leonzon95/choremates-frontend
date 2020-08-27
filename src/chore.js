@@ -74,15 +74,28 @@ class Chore {
         if (e.target.innerText === "Assign") {
             e.target.innerText = "Close";
             let houseMembers = this.house.members;
-            div.innerHTML = `<br><select id="chore-assign-${this.id}" class="form-control">
+            div.innerHTML = `<br><div id="chore-assign-error-${this.id}"></div>
+            <select id="chore-assign-${this.id}" class="form-control">
             <option selected>Select Member</option>
-            </select><br><button type="button" class="btn btn-primary" id="chore-assign-button-${this.id}">Assign</button>
+            </select><br>
+            <select id="chore-assign-${this.id}-day" class="form-control">
+            <option selected>Select Day</option>
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+            <option>Sunday</option>
+            </select>
+            <br><button type="button" class="btn btn-primary" id="chore-assign-button-${this.id}">Assign</button>
             `
             let dropDown = document.getElementById(`chore-assign-${this.id}`);
-
+            let button = document.getElementById(`chore-assign-button-${this.id}`);
             houseMembers.forEach(el => {
                 dropDown.innerHTML += `<option>${el.name}</option>`
             });
+            button.addEventListener("click", this.assignCheckpoint);
 
         } else {
             e.target.innerText = "Assign";
@@ -90,4 +103,16 @@ class Chore {
         }
     }
 
+    assignCheckpoint = (e) => {
+        console.log(this)
+        let houseMember = document.getElementById(`chore-assign-${this.id}`).value;
+        let day = document.getElementById(`chore-assign-${this.id}`).value;
+        if(houseMember === "Select Member" || day === "Select Day") {
+            let div = document.getElementById(`chore-assign-error-${this.id}`);
+            div.innerHTML = `<div class="alert alert-danger" role="alert">Must select a member and day</div>`
+        } else {
+            const choreAdapter = new ChoreAdapter(this.houseId);
+            
+        }
+    }
 }
