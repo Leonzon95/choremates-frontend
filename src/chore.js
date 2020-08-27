@@ -40,20 +40,6 @@ class Chore {
     }
 
     attachAssgToDom = () => {
-        // const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-        // let dayId
-        // for (let i = 0; i < days.length; i++){ 
-        //     if (this.day === days[i]) dayId = i;
-        // }
-        // let tableCell = document.getElementById(`member-${this.houseMember.id}-day-${dayId}`);
-        // if(this.difficulty === "Easy") {
-        //     tableCell.innerHTML +=`<div class="text-success text-center" id="table-cell-${this.id}">${this.name}</div>`
-        // } else if (this.difficulty === "Medium") {
-        //     tableCell.innerHTML +=`<div class="text-warning text-center" id="table-cell-${this.id}">${this.name}</div>`
-        // } else {
-        //     tableCell.innerHTML +=`<div class="text-danger" id="table-cell-${this.id}">${this.name}</div>`
-        // }
-
         this.attachToTableCell(this.day, this.houseMemberId, this.name);
         let outerDiv = document.getElementById("assg-chore-list");
         let choreDiv = document.createElement("div")
@@ -75,6 +61,11 @@ class Chore {
         let editBttn = document.querySelector(`#outer-assg-chore-${this.id} .edit`);
         let deleteBttn = document.querySelector(`#outer-assg-chore-${this.id} .delete`);
         editBttn.addEventListener("click", this.editAssgChoreForm);
+        
+        deleteBttn.addEventListener("click", () =>{
+            const choreAdapter = new ChoreAdapter(this.houseId);
+            choreAdapter.deleteChore(this.id, true)
+        });
     }
 
     editUnassgChoreForm = (e) => {
@@ -199,10 +190,7 @@ class Chore {
                 let day = dayDiv.firstChild.value;
                 let houseMemberId = memberDiv.firstChild.value;
                 let name = nameDiv.firstChild.value.trim();
-                let difficulty =diffDiv.firstChild.value;
-                // let oldMember = this.houseMemberId;
-                // let oldDay = this.day;
-                
+                let difficulty =diffDiv.firstChild.value;             
                 const choreAdapter = new ChoreAdapter(this.houseId);
                 let attr = {day, houseMemberId, name, difficulty};
                 choreAdapter.patchAssgChore(this.id, attr, true);
@@ -212,10 +200,22 @@ class Chore {
         }
     }
 
+    deleteAssgChore() {
+        this.deleteTableCell();
+        let card = document.getElementById(`outer-assg-chore-${this.id}`);
+        card.parentElement.removeChild(card);
+        
+    }
+
     updateTableCell = (newDay, newMemId, newName) => {
-        let oldDiv = document.getElementById(`table-cell-${this.id}`);
-        oldDiv.parentElement.removeChild(oldDiv);
+        this.deleteTableCell();
         this.attachToTableCell(newDay, newMemId, newName);
+    }
+
+    deleteTableCell = () => {
+        let oldDiv = document.getElementById(`table-cell-${this.id}`);
+        // oldDiv.parentElement.removeChild(oldDiv);
+        oldDiv.remove();
     }
 
     attachToTableCell = (day, houseMemberId, name) => {
