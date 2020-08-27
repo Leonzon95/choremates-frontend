@@ -64,7 +64,21 @@ class ChoreAdapter {
     }
 
     patchAssgChore(choreId, {day, houseMemberId, name, difficulty}) {
-        
+        let obj = { name, difficulty, houseMemberId, day };
+        let config = {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify(obj)
+        }
+        fetch(`${this.baseUrl}/${choreId}`, config)
+            .then(resp => resp.json())
+            .then(json => {
+                let chore = Chore.all.find(el => el.id == choreId);
+                chore.updateAssgChore(json.data.attributes);
+            })
     }
 
     //delete

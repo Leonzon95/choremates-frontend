@@ -1,11 +1,12 @@
 class Chore {
     static all = [];
 
-    constructor({name, id, difficulty, houseId}) {
+    constructor({name, id, difficulty, houseId, houseMemberId}) {
         this.name = name;
         this.id = id;
         this.difficulty = difficulty;
         this.houseId = houseId;
+        this.houseMemberId = houseMemberId;
         Chore.all.push(this);
     }
 
@@ -93,7 +94,7 @@ class Chore {
             let dropDown = document.getElementById(`chore-assign-${this.id}`);
             let button = document.getElementById(`chore-assign-button-${this.id}`);
             houseMembers.forEach(el => {
-                dropDown.innerHTML += `<option>${el.name}</option>`
+                dropDown.innerHTML += `<option value="${this.id}">${el.name}</option>`
             });
             button.addEventListener("click", this.assignCheckpoint);
 
@@ -104,15 +105,37 @@ class Chore {
     }
 
     assignCheckpoint = (e) => {
-        console.log(this)
-        let houseMember = document.getElementById(`chore-assign-${this.id}`).value;
-        let day = document.getElementById(`chore-assign-${this.id}`).value;
-        if(houseMember === "Select Member" || day === "Select Day") {
+        let houseMemberId = document.getElementById(`chore-assign-${this.id}`).value;
+        let day = document.getElementById(`chore-assign-${this.id}-day`).value;
+        if(houseMemberId === "Select Member" || day === "Select Day") {
             let div = document.getElementById(`chore-assign-error-${this.id}`);
             div.innerHTML = `<div class="alert alert-danger" role="alert">Must select a member and day</div>`
         } else {
             const choreAdapter = new ChoreAdapter(this.houseId);
-            
+            let attr = {day, houseMemberId, name: this.name, difficulty: this.difficulty};
+            choreAdapter.patchAssgChore(this.id, attr)
+        }
+    }
+
+    updateAssgChore(obj) { 
+        let el = document.getElementById(`outer-chore-${this.id}`);
+        if (!!el) el.parentElement.removeChild(el);
+        this.name = obj.name;
+        this.difficulty = obj.difficulty;
+        this.houseMemberId = obj.house_member_id;
+        const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        let dayId
+        for (let i = 0; i < days.length; i++){ 
+            if (obj.day === days[i]) dayId = i;
+        }
+        let tableCell = document.getElementById(`member-${this.id}-day-${dayId}`);
+        
+        if(this.difficulty === "Easy") {
+            tableCell.innerHTML =`<div class="text-success text-center">${this.name}</div>`
+        } else if (this.difficulty === "Medium") {
+            tableCell.innerHTML =`<div class="text-warning text-center">${this.name}</div>`
+        } else {
+            tableCell.innerHTML =`<div class="text-danger text-center">${this.name}</div>`
         }
     }
 }
