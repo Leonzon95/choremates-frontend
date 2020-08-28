@@ -34,4 +34,18 @@ class HouseMemberAdapter {
             div.innerHTML = `<div class="alert alert-danger" role="alert">${json.error}</div>`
         }
     }
+
+    //update
+    patchMember(id, name) {
+        let obj = { name }
+        let config = {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify(obj)
+        }
+        fetch(`${this.baseUrl}/${id}`, config)
+    }
 }
