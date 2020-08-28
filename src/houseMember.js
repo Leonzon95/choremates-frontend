@@ -18,6 +18,8 @@ class HouseMember {
             el.innerHTML += `<td id="member-${this.id}-day-${counter}" class="text-center"></td>`
             counter++
         });
-        ul.innerHTML += `<li class="list-group-item" id="member-li-${this.id}">${this.name}</li>`
+        ul.innerHTML += `<li class="list-group-item" id="member-li-${this.id}">${this.name}\
+        <button type="button" class="button edit-btn-member">Edit</button>
+        <button type="button" class="button delete-btn-member">Delete</button></li>`
     }
 }

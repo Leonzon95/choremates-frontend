@@ -14,7 +14,7 @@ class House {
     
 
     viewHouse() {
-        seconDiv.innerHTML = `<h3>${unslug(this.name)}</h3><div class="row buttons"></div>
+        seconDiv.innerHTML = `<h2>${unslug(this.name)}</h2><div class="row buttons"></div>
         <div class="row house-rules">
             <div class="col-sm-6 row-cards">
                 <h4 class="">House Members:</h4>

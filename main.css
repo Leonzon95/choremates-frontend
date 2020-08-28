@@ -26,5 +26,26 @@
       padding-bottom: 10px;
   }
 
+  .button {
+    border: none;
+    color: white;
+    border-radius: 3px;
+    padding: 1px 6px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+  }
+
+ .edit-btn-member {
+    background-color: #6c757d;
+    border-color: #6c757d;
+  }
+
+.delete-btn-member {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+
   
 
