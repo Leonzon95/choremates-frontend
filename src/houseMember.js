@@ -62,11 +62,10 @@ class HouseMember {
     }
 
     deleteMember = (e) => {
-        const memberAdapter = new HouseMemberAdapter;
+        const memberAdapter = new HouseMemberAdapter(this.houseId);
         memberAdapter.deleteMember(this.id);
         let li = document.getElementById(`member-li-${this.id}`);
         let tableHead = document.getElementById(`member-name-table-cell-${this.id}`);
-        memberAdapter.deleteMember(this.id);
         li.remove();
         tableHead.remove();
         for (let i = 0; i < 7; i++) {
