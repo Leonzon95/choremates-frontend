@@ -36,7 +36,7 @@ class HouseMemberAdapter {
     }
 
     //update
-    patchMember(id, name) {
+    patchMember(houseMemberId, name) {
         let obj = { name }
         let config = {
             method: 'PATCH',
@@ -46,6 +46,20 @@ class HouseMemberAdapter {
             },
             body: JSON.stringify(obj)
         }
-        fetch(`${this.baseUrl}/${id}`, config)
+        fetch(`${this.baseUrl}/${houseMemberId}`, config)
+    }
+
+    //delete
+    deleteMember(houseMemberId) {
+        let obj = { name }
+        let config = {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify(obj)
+        }
+        fetch(`${this.baseUrl}/${houseMemberId}`, config)
     }
 }

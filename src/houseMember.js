@@ -62,14 +62,24 @@ class HouseMember {
     }
 
     deleteMember = (e) => {
+        const memberAdapter = new HouseMemberAdapter;
+        memberAdapter.deleteMember(this.id);
         let li = document.getElementById(`member-li-${this.id}`);
         let tableHead = document.getElementById(`member-name-table-cell-${this.id}`);
+        memberAdapter.deleteMember(this.id);
         li.remove();
         tableHead.remove();
         for (let i = 0; i < 7; i++) {
             let cell = document.getElementById(`member-${this.id}-day-${i}`)
             cell.remove();
         }
-
+        for (const chore of this.chores) {
+            chore.day = null;
+            chore.houseMemberId = null;
+            let card = document.getElementById(`outer-assg-chore-${chore.id}`);
+            card.parentElement.removeChild(card);
+            chore.attachToDom();
+        }
+        this.houseId = null;
     }
 }
