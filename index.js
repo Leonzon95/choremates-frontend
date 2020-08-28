@@ -68,7 +68,7 @@ function findHouseForm() {
 function newHouseMemberForm(houseId) {
     const memberAdapter = new HouseMemberAdapter(houseId)
     let div = document.createElement("div");
-    div.className = "col-6 col-md-4";
+    div.className = "col-sm-6";
     div.innerHTML += `<button class="btn btn-info" id="new-house-member-button">Add House Member</button>
     <div id="error-member-show"></div>
     <form action="POST" id="new-house-member-form" class="d-none">
@@ -99,7 +99,7 @@ function newHouseMemberForm(houseId) {
 function newHouseRuleForm(houseId) {
     const ruleAdapter = new RuleAdapter(houseId)
     let div = document.createElement("div");
-    div.className = "col-6 col-md-4";
+    div.className = "col-sm-6";
     div.innerHTML = `<button class="btn btn-info" id="new-house-rule-button">Add House Rule</button>
     <div id="error-rule-show"></div>
     <form action="POST" id="new-house-rule-form" class="d-none">
@@ -130,7 +130,6 @@ function newHouseRuleForm(houseId) {
 function newHouseChoreForm(houseId) {
     const choreAdapter = new ChoreAdapter(houseId)
     let div = document.createElement("div");
-    div.className = "col-6 col-md-4";
     div.innerHTML = `<button class="btn btn-info" id="new-house-chore-button">Add House Chore</button> <div id="error-chore-show"></div>
     <form action="POST" id="new-house-chore-form" class="d-none">
     <div class="form-group">
@@ -150,7 +149,7 @@ function newHouseChoreForm(houseId) {
     <input type="submit" class="btn btn-info btn-sm" value="Add Chore">
     </div>
     </form>`;
-    let bttnRowDiv = document.querySelector(".buttons");
+    let bttnRowDiv = document.querySelector("#add-chore-bttn");
     bttnRowDiv.appendChild(div);
     let button = document.getElementById("new-house-chore-button");
     let form = document.getElementById("new-house-chore-form");

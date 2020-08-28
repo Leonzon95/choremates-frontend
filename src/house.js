@@ -45,7 +45,8 @@ class House {
         <h4>Assigned Chores:</h4><br>
         <div id="assg-chore-list" class="row no-style-dsp"></div>
         </div>
-        <div class="col-md-4 ml-auto" ><ul id="chore-list" class="no-style-dsp"><h4>Unassigned Chores:</h4></ul>
+        <div class="col-md-4 ml-auto" ><div id="add-chore-bttn"></div><br>
+        <ul id="chore-list" class="no-style-dsp"><h4>Unassigned Chores:</h4></ul>
         </div>
         </div>`
         newHouseMemberForm(this.id);
