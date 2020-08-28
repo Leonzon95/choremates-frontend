@@ -6,7 +6,7 @@ class Rule {
     }
 
     attachToDom() {
-        let ol = document.querySelector(".house-rules ol")
-        ol.innerHTML += `<li>${this.description}</li>`
+        let ol = document.querySelector("#house-rules-list")
+        ol.innerHTML += `<h6><li>${this.description}</li></h6>`
     }
 }

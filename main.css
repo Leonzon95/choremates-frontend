@@ -2,24 +2,29 @@
     display:none;
 }
 
-#chore-list {
-    list-style-type: none;
-    list-style: none;
-}
-#assg-chore-list {
+
+.no-style-dsp {
     list-style-type: none;
     list-style: none;
 }
 
-.btn-x-sm{
-    width: 120px;
-    height: 30px;
-    font-size: 1px;
-    line-height: 3em;
-    text-align: center;
-    text-emphasis-position: relative;
-}
+
 
 #assg-chore-list {
     justify-content: space-around;
 }
+
+.btn-group-xs > .btn, .btn-xs {
+    padding: .25rem .4rem;
+    font-size: .875rem;
+    line-height: .5;
+    border-radius: .2rem;
+  }
+
+  .row-cards {
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+
+  
+

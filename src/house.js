@@ -8,14 +8,27 @@ class House {
     }
 
     get members() {
-        return HouseMember.all.filter(el => el.houseId === this.id);
+        return HouseMember.all.filter(el => el.houseId == this.id);
     }
 
     
 
     viewHouse() {
         seconDiv.innerHTML = `<h3>${unslug(this.name)}</h3><div class="row buttons"></div>
-        <div class="row house-rules"><ol></ol></div>
+        <div class="row house-rules">
+            <div class="col-sm-6 row-cards">
+                <h4 class="">House Members:</h4>
+                <ul class="list-group" id="house-member-list"></ul>
+            </div>
+            <div class="col-sm-6 row-cards">
+                <div class="card">
+                    <div class="card-body">
+                    <h4 class="card-title" >Rules:</h4>
+                    <ol id="house-rules-list"></ol>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row house-body">
         <div class="col">
         <table class="table table-bordered">
@@ -30,10 +43,9 @@ class House {
         <tr><th scope="row">Sun</th></tr>
         </tbody></table>
         <h4>Assigned Chores:</h4><br>
-        <div id="assg-chore-list" class="row"></div>
+        <div id="assg-chore-list" class="row no-style-dsp"></div>
         </div>
-        <div class="col-md-4 ml-auto" ><ul id="chore-list"><h4>Unassigned Chores:</h4></ul>
-        
+        <div class="col-md-4 ml-auto" ><ul id="chore-list" class="no-style-dsp"><h4>Unassigned Chores:</h4></ul>
         </div>
         </div>`
         newHouseMemberForm(this.id);
