@@ -1,6 +1,6 @@
 # ChoreMates
 
-This app lets people organize and divide chores between people living in a house. 
+This app lets people organize and divide chores between everyone living in a house. 
 
 ## Getting Started
 
