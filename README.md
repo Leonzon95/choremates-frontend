@@ -37,7 +37,7 @@ Open the index.html file with a browser.
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://gist.github.com/Leonzon95/4c2d49eca48762c7ce035bceb1d424c9) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## License
 
