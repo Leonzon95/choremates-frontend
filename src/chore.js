@@ -203,8 +203,7 @@ class Chore {
     deleteAssgChore() {
         this.deleteTableCell();
         let card = document.getElementById(`outer-assg-chore-${this.id}`);
-        card.parentElement.removeChild(card);
-        
+        card.remove();
     }
 
     updateTableCell = (newDay, newMemId, newName) => {
@@ -214,7 +213,6 @@ class Chore {
 
     deleteTableCell = () => {
         let oldDiv = document.getElementById(`table-cell-${this.id}`);
-        // oldDiv.parentElement.removeChild(oldDiv);
         oldDiv.remove();
     }
 

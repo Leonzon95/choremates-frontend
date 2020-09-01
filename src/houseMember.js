@@ -57,7 +57,15 @@ class HouseMember {
                 this.name = input;
                 nameDiv.innerHTML =`${this.name}`;
                 tableCell.innerText = `${this.name}`;
+                this.updateChoresCards();
             }
+        }
+    }
+
+    updateChoresCards = () => {
+        for(const chore of this.chores) {
+            let div = document.getElementById(`assg-member-field-${chore.id}`);
+            div.innerText = `Member: ${this.name}`;
         }
     }
 
