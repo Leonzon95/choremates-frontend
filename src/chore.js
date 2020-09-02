@@ -190,12 +190,11 @@ class Chore {
                 let day = dayDiv.firstChild.value;
                 let houseMemberId = memberDiv.firstChild.value;
                 let name = nameDiv.firstChild.value.trim();
-                let difficulty =diffDiv.firstChild.value;             
+                let difficulty = diffDiv.firstChild.value;             
                 const choreAdapter = new ChoreAdapter(this.houseId);
                 let attr = {day, houseMemberId, name, difficulty};
                 choreAdapter.patchAssgChore(this.id, attr, true);
-                e.target.innerText = "Edit"
-                this.updateTableCell(day, houseMemberId, name);
+                e.target.innerText = "Edit";
             }
         }
     }
@@ -250,6 +249,7 @@ class Chore {
             memberDiv.innerHTML = `Member: ${this.houseMember.name}`;
             diffDiv.innerHTML = `Difficulty: ${this.difficulty}`;
             dayDiv.innerHTML = `Every ${this.day}`;
+            this.updateTableCell(this.day, this.houseMemberId, this.name);
         }
         
     }
