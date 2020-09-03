@@ -21,8 +21,9 @@ class ChoreAdapter {
             body: JSON.stringify(obj)
         }
         fetch(this.baseUrl, config)
-            .then(resp => resp.json())
-            .then(this.handleCreateJson)
+            // .then(resp => resp.json())
+            // .then(this.handleCreateJson)
+        
     }
     
     handleCreateJson(json) {
@@ -52,16 +53,17 @@ class ChoreAdapter {
             body: JSON.stringify(obj)
         }
         fetch(`${this.baseUrl}/${choreId}`, config)
-            .then(resp => resp.json())
-            .then((json) => {
-                if(!json.error){
-                    let chore = Chore.all.find(el => el.id == choreId);
-                    chore.updateUnassgChore(json.data.attributes);
-                } else {
-                    let div = document.getElementById(`unassg-error-${choreId}`);
-                    div.innerHTML = `<div class="alert alert-danger" role="alert">${json.error}</div>`
-                }
-            }); 
+            // .then(resp => resp.json())
+            // .then((json) => {
+            //     if(!json.error){
+            //         let chore = Chore.all.find(el => el.id == choreId);
+            //         // chore.updateUnassgChore(json.data.attributes);
+                    
+            //     } else {
+            //         let div = document.getElementById(`unassg-error-${choreId}`);
+            //         div.innerHTML = `<div class="alert alert-danger" role="alert">${json.error}</div>`
+            //     }
+            // }); 
     }
 
     patchAssgChore(choreId, {day, houseMemberId, name, difficulty}, isOld) {

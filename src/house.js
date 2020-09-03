@@ -49,6 +49,7 @@ class House {
         <ul id="chore-list" class="no-style-dsp"><h4>Unassigned Chores:</h4></ul>
         </div>
         </div>`
+        webSocketConnection(this.id);
         newHouseMemberForm(this.id);
         newHouseRuleForm(this.id);
         newHouseChoreForm(this.id);

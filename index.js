@@ -198,4 +198,6 @@ function renderHouseChores(array, houseId) {
 }
 
 
-document.addEventListener("DOMContentLoaded", indexHomeButtons);
+document.addEventListener("DOMContentLoaded", () =>{
+    indexHomeButtons();
+});
