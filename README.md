@@ -7,8 +7,7 @@ This app lets people organize and divide chores between everyone living in a hou
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 ### Prerequisites
 
-To be able to connect it to the database and have full functionality clone thie repository:
-[Backend](https://github.com/Leonzon95/choremates-backend)
+To be able to connect it to the database and have full functionality clone the backend repository: [ChoreMates Backend](https://github.com/Leonzon95/choremates-backend)
 
 
 ### Installing
@@ -25,12 +24,13 @@ Go to file
 cd choremates-frontend
 ```
 
-Open the index.html file with a browser.
+Open index.html file.
 
 
 ## Built With
 
 * JavaScript
+* Bootstrap
 * CSS
 * HTML
 
@@ -41,6 +41,4 @@ Please read [CONTRIBUTING.md](https://gist.github.com/Leonzon95/4c2d49eca48762c7
 
 ## License
 
-This project is licensed under the [MIT](https://opensource.org/licenses/MIT) License 
-
-
+This project is licensed under the [MIT](https://opensource.org/licenses/MIT) License
