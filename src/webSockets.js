@@ -23,7 +23,24 @@ function webSocketConnection(houseId) {
                 choreAdapter.handleCreateJson(resp.message.chore);
             } else if (resp.message.action === "edit") {
                 const chore = Chore.all.find((el) => resp.message.chore.data.id == el.id);
-                chore.updateUnassgChore(resp.message.chore.data.attributes);
+                if (!!chore.houseMemberId){
+                    chore.updateAssgChore(resp.message.chore.data.attributes, true)
+                } else {
+                    if(resp.message.isAssg) {
+                        chore.updateAssgChore(resp.message.chore.data.attributes, false)
+                    } else {
+                        chore.updateUnassgChore(resp.message.chore.data.attributes);
+                    }
+                    
+                }
+            } else if(resp.message.action === "delete") {
+                const chore = Chore.all.find((el) => resp.message.id == el.id)
+                debugger
+                if (!!chore.houseMemberId){
+                    chore.deleteAssgChore()
+                } else{
+                    chore.deleteUnassgChoreFromDom()
+                }
             }
         }
     }

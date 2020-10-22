@@ -78,11 +78,11 @@ class ChoreAdapter {
             body: JSON.stringify(obj)
         }
         fetch(`${this.baseUrl}/${choreId}`, config)
-            .then(resp => resp.json())
-            .then(json => {              
-                let chore = Chore.all.find(el => el.id == choreId);
-                chore.updateAssgChore(json.data.attributes, isOld);
-            })
+            // .then(resp => resp.json())
+            // .then(json => {              
+            //     let chore = Chore.all.find(el => el.id == choreId);
+            //     chore.updateAssgChore(json.data.attributes, isOld);
+            // })
     }
 
     //delete
@@ -96,11 +96,6 @@ class ChoreAdapter {
         }
         fetch(`${this.baseUrl}/${choreId}`, config)
         
-        let chore = Chore.all.find((el) => el.id == choreId)
-        if (!!isAssigned){
-            chore.deleteAssgChore()
-        } else{
-            chore.deleteUnassgChoreFromDom()
-        }
+        
     }
 }
